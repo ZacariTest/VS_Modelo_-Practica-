@@ -1,38 +1,27 @@
 import pygame
 import sys
-from colores import blanco, negro, rojo, fuente
-from display import ancho_pantalla, alto_pantalla, pantalla
+from colores import blanco, negro, rojo
+from confi import ancho_pantalla, alto_pantalla, pantalla, fuente
 
-#Inicializador de Pygame
-
+# Inicializador de Pygame
 pygame.init()
 
 # Menu (Prueba)
-
 class Menu:
     def __init__(self):
-       self.items = [
-        { "mensaje": "Iniciar",
-         "action": self.start_game
-        },
-        { "mensaje": "Cargar",
-         "action": self.load_progress
-        },
-        { "mensaje": "Salir",
-         "action": self.exit_game
-        },
-
-
-    ]
-       self.select_index = 0
-       self.fondo_menu = pygame.image.load('imagenes/Portada.png')
-       
+        self.items = [
+            {"mensaje": "Iniciar", "action": self.start_game},
+            {"mensaje": "Cargar", "action": self.load_progress},
+            {"mensaje": "Salir", "action": self.exit_game},
+        ]
+        self.select_index = 0
+        self.fondo_menu = pygame.image.load('imagenes/Portada.png')
+        self.fondo_menu = pygame.transform.scale(self.fondo_menu, (ancho_pantalla, alto_pantalla))  # Redimensionar la imagen
 
     def display(self):
         pantalla.blit(self.fondo_menu, (0, 0))
  
         for index, item in enumerate(self.items):
-
             x_pos = ancho_pantalla * 0.1
             y_pos = alto_pantalla * (0.3 + index * 0.1)
 
@@ -43,21 +32,17 @@ class Menu:
 
             pantalla.blit(texto_renderizado, (x_pos, y_pos))
 
-
     def select(self):
         action = self.items[self.select_index]["action"]
         action()
-         
 
     def start_game(self):
         print("Bienvenido.")
-        
 
     def load_progress(self):
         print("Progreso cargado.")
 
     def exit_game(self):
-        print("nos vimos vampiro...")  
+        print("nos vimos vampiro...")
         pygame.quit()
-        sys.exit()      
- 
+        sys.exit()
